@@ -1,6 +1,7 @@
 # Video to Color ASCII Art Converter
 
 A high-performance web application that converts videos to colored ASCII art using WebGL and WebAssembly for GPU acceleration.
+<img width="1383" height="1055" alt="image" src="https://github.com/user-attachments/assets/d50504af-7d4c-4012-9304-fb5d830e435a" />
 
 ## Features
 
