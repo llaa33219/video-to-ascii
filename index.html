@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video to ASCII Art Converter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Video to ASCII Art Converter</h1>
+        
+        <div class="controls">
+            <div class="input-section">
+                <label for="videoInput">Select Video:</label>
+                <input type="file" id="videoInput" accept="video/*">
+            </div>
+            
+            <div class="settings">
+                <label for="bgColor">Background Color:</label>
+                <input type="color" id="bgColor" value="#000000">
+                
+                <label for="fontSize">Font Size:</label>
+                <input type="range" id="fontSize" min="12" max="48" value="24">
+                <span id="fontSizeValue">24px</span>
+                
+                <label for="density">ASCII Density:</label>
+                <input type="range" id="density" min="1" max="10" value="3">
+                
+                <label for="colorAccuracy">Color Accuracy:</label>
+                <input type="range" id="colorAccuracy" min="1" max="100" value="80">
+            </div>
+            
+            <div class="buttons">
+                <button id="processBtn" disabled>Process Video</button>
+                <button id="pauseBtn" disabled>Pause</button>
+                <button id="exportBtn" disabled>Export as MP4</button>
+            </div>
+            
+            <div class="progress-section">
+                <div class="progress-bar">
+                    <div id="progressFill"></div>
+                </div>
+                <span id="progressText">0%</span>
+            </div>
+        </div>
+        
+        <div class="preview-section">
+            <video id="sourceVideo" controls style="display: none;"></video>
+            <canvas id="asciiCanvas"></canvas>
+            <pre id="asciiOutput" style="display: none;"></pre>
+        </div>
+    </div>
+    
+    <!-- Hidden elements for processing -->
+    <canvas id="offscreenCanvas" style="display: none;"></canvas>
+    <video id="exportVideo" style="display: none;"></video>
+    
+    <script src="wasm-loader.js"></script>
+    <script src="webgl-processor.js"></script>
+    <script src="ascii-converter.js"></script>
+    <script src="video-exporter.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

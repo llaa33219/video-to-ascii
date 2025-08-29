@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Video to ASCII</title>
+</head>
+<body>
+    <h1>Testing Video to ASCII Components</h1>
+    <div id="results"></div>
+    
+    <script src="wasm-loader.js"></script>
+    <script src="webgl-processor.js"></script>
+    <script src="ascii-converter.js"></script>
+    <script src="video-exporter.js"></script>
+    <script>
+        const results = document.getElementById('results');
+        
+        // Test if all classes are loaded
+        const tests = [
+            { name: 'WASMProcessor', exists: typeof WASMProcessor !== 'undefined' },
+            { name: 'WebGLProcessor', exists: typeof WebGLProcessor !== 'undefined' },
+            { name: 'ASCIIConverter', exists: typeof ASCIIConverter !== 'undefined' },
+            { name: 'VideoExporter', exists: typeof VideoExporter !== 'undefined' }
+        ];
+        
+        tests.forEach(test => {
+            const div = document.createElement('div');
+            div.style.color = test.exists ? 'green' : 'red';
+            div.textContent = `${test.name}: ${test.exists ? 'Loaded ✓' : 'Not loaded ✗'}`;
+            results.appendChild(div);
+        });
+        
+        // Test WebGL support
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        const webglDiv = document.createElement('div');
+        webglDiv.style.color = gl ? 'green' : 'red';
+        webglDiv.textContent = `WebGL: ${gl ? 'Supported ✓' : 'Not supported ✗'}`;
+        results.appendChild(webglDiv);
+    </script>
+</body>
+</html>

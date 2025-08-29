@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple ASCII Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+        }
+        canvas {
+            border: 1px solid #333;
+            display: block;
+            margin: 20px 0;
+        }
+        pre {
+            font-size: 12px;
+            line-height: 1;
+            letter-spacing: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple ASCII Rendering Test</h1>
+    
+    <canvas id="testCanvas" width="600" height="400"></canvas>
+    <pre id="asciiTest"></pre>
+    
+    <script>
+        // Test basic ASCII rendering
+        const canvas = document.getElementById('testCanvas');
+        const ctx = canvas.getContext('2d');
+        const pre = document.getElementById('asciiTest');
+        
+        // ASCII characters
+        const asciiChars = ' .:-=+*#%@';
+        
+        // Draw test pattern
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Test different font sizes
+        const fontSize = 16;
+        ctx.font = `${fontSize}px 'Courier New', monospace`;
+        ctx.fillStyle = '#fff';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        
+        // Draw ASCII characters in a grid
+        let y = 20;
+        for (let row = 0; row < 10; row++) {
+            let x = 20;
+            for (let col = 0; col < 20; col++) {
+                const brightness = (row * 20 + col) / 200;
+                const charIndex = Math.floor(brightness * (asciiChars.length - 1));
+                const char = asciiChars[charIndex];
+                
+                // Color based on position
+                const r = Math.floor(255 * (col / 20));
+                const g = Math.floor(255 * (row / 10));
+                const b = 128;
+                
+                ctx.fillStyle = `rgb(${r},${g},${b})`;
+                ctx.fillText(char, x, y);
+                
+                x += fontSize;
+            }
+            y += fontSize;
+        }
+        
+        // Test in pre element
+        let asciiText = '';
+        for (let row = 0; row < 10; row++) {
+            for (let col = 0; col < 40; col++) {
+                const brightness = Math.random();
+                const charIndex = Math.floor(brightness * (asciiChars.length - 1));
+                asciiText += asciiChars[charIndex];
+            }
+            asciiText += '\n';
+        }
+        pre.textContent = asciiText;
+        
+        console.log('Font test completed');
+    </script>
+</body>
+</html>

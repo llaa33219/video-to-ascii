@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Create Test Video</title>
+</head>
+<body>
+    <h1>Create Test Video for ASCII Converter</h1>
+    <p>This page creates a simple animated test video you can use with the ASCII converter.</p>
+    
+    <canvas id="demoCanvas" width="640" height="480"></canvas>
+    <br>
+    <button id="recordBtn">Start Recording 5s Test Video</button>
+    <button id="downloadBtn" disabled>Download Test Video</button>
+    
+    <script>
+        const canvas = document.getElementById('demoCanvas');
+        const ctx = canvas.getContext('2d');
+        const recordBtn = document.getElementById('recordBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        
+        let animationId;
+        let recorder;
+        let chunks = [];
+        
+        // Animation function
+        function animate(timestamp) {
+            // Clear canvas
+            ctx.fillStyle = '#1a1a1a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw animated circles
+            const time = timestamp * 0.001;
+            
+            for (let i = 0; i < 5; i++) {
+                const x = canvas.width / 2 + Math.cos(time + i) * 150;
+                const y = canvas.height / 2 + Math.sin(time + i) * 150;
+                const hue = (time * 50 + i * 60) % 360;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, 30, 0, Math.PI * 2);
+                ctx.fillStyle = `hsl(${hue}, 70%, 50%)`;
+                ctx.fill();
+            }
+            
+            // Draw text
+            ctx.font = '48px Arial';
+            ctx.fillStyle = 'white';
+            ctx.textAlign = 'center';
+            ctx.fillText('ASCII Test Video', canvas.width / 2, 100);
+            
+            ctx.font = '24px Arial';
+            ctx.fillStyle = '#4a9eff';
+            ctx.fillText(`Time: ${time.toFixed(1)}s`, canvas.width / 2, canvas.height - 50);
+            
+            animationId = requestAnimationFrame(animate);
+        }
+        
+        // Start animation
+        animate(0);
+        
+        recordBtn.addEventListener('click', async () => {
+            chunks = [];
+            recordBtn.disabled = true;
+            
+            const stream = canvas.captureStream(30);
+            recorder = new MediaRecorder(stream, {
+                mimeType: 'video/webm;codecs=vp9',
+                videoBitsPerSecond: 2500000
+            });
+            
+            recorder.ondataavailable = (e) => {
+                if (e.data.size > 0) chunks.push(e.data);
+            };
+            
+            recorder.onstop = () => {
+                const blob = new Blob(chunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+                
+                downloadBtn.disabled = false;
+                downloadBtn.onclick = () => {
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'test-video.webm';
+                    a.click();
+                };
+                
+                recordBtn.disabled = false;
+                recordBtn.textContent = 'Record Again';
+            };
+            
+            recorder.start();
+            
+            // Stop after 5 seconds
+            setTimeout(() => {
+                recorder.stop();
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

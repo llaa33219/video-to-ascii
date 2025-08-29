@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video to ASCII Art Converter - Start</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #f0f0f0;
+        }
+        h1 { color: #4a9eff; }
+        .card {
+            background: #2a2a2a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid #3a3a3a;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #4a9eff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 10px 10px 10px 0;
+            transition: background 0.3s;
+        }
+        .button:hover { background: #3a8eef; }
+        .warning { 
+            background: #3a2a1a; 
+            border-color: #5a4a3a;
+            color: #ffa500;
+        }
+        code {
+            background: #3a3a3a;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video to ASCII Art Converter</h1>
+    
+    <div class="card">
+        <h2>Welcome!</h2>
+        <p>This application converts videos to colored ASCII art using GPU acceleration.</p>
+        <a href="index.html" class="button">Launch Converter</a>
+        <a href="test.html" class="button">System Test</a>
+        <a href="demo.html" class="button">Create Test Video</a>
+    </div>
+    
+    <div class="card warning">
+        <h2>Browser Compatibility</h2>
+        <p>For best performance, use:</p>
+        <ul>
+            <li><strong>Chrome/Edge</strong> - Full WebGL2 support, MP4 export</li>
+            <li><strong>Firefox</strong> - Good WebGL support, WebM export</li>
+            <li><strong>Safari</strong> - Limited WebGL, may use fallback rendering</li>
+        </ul>
+        <p>Note: If you see WebGL errors, the app will still work using Canvas fallback rendering.</p>
+    </div>
+    
+    <div class="card">
+        <h2>Quick Start</h2>
+        <ol>
+            <li>Click "Launch Converter" above</li>
+            <li>Select a video file (MP4, WebM, etc.)</li>
+            <li>Adjust settings:
+                <ul>
+                    <li>Background Color - Choose ASCII background</li>
+                    <li>Font Size - Smaller = more detail</li>
+                    <li>Density - Character density</li>
+                    <li>Color Accuracy - Color vs monochrome balance</li>
+                </ul>
+            </li>
+            <li>Click "Process Video" to see real-time conversion</li>
+            <li>Click "Export as MP4" to save (exports as WebM in most browsers)</li>
+        </ol>
+    </div>
+    
+    <div class="card">
+        <h2>No Video File?</h2>
+        <p>Click <a href="demo.html" class="button">Create Test Video</a> to generate a simple animated test video.</p>
+    </div>
+    
+    <div class="card">
+        <h2>Troubleshooting</h2>
+        <ul>
+            <li><strong>WebGL Error</strong> - Normal in some browsers, fallback rendering will be used</li>
+            <li><strong>WASM Warning</strong> - Expected, using optimized JavaScript instead</li>
+            <li><strong>Export Issues</strong> - Try different browsers, Chrome/Edge work best</li>
+            <li><strong>Performance</strong> - Reduce video resolution or increase font size</li>
+        </ul>
+    </div>
+</body>
+</html>
